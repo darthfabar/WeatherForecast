@@ -12,7 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using WeatherForecast.Api.ExternalServices;
 using WeatherForecast.Api.ExternalServices.Openweathermap;
+using WeatherForecast.Api.Services;
+using AutoMapper;
 
 namespace WeatherForecast.Api {
     public class Startup {
@@ -34,7 +37,11 @@ namespace WeatherForecast.Api {
             services.AddSingleton(new OpenWeatherApiSettings(Configuration.GetValue<string>("OpenWeatherMap:ServiceUri"),
                                                             Configuration.GetValue<string>("OpenWeatherMap:AppKey"),
                                                             Configuration.GetValue<string>("OpenWeatherMap:CountryCode")));
-            
+
+            services.AddScoped<IWeatherService, OpenWeatherMapService>();
+            services.AddScoped<IHttpClientFactory, HttpClientFactory>();
+            services.AddScoped<IOpenWeathermapClient, OpenWeathermapClient>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

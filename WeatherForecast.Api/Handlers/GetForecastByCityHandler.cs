@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,7 +19,26 @@ namespace WeatherForecast.Api.Handlers {
 
         public async Task<WeatherForecastResponse> Handle(GetForecastByCityCodeQuery request, CancellationToken cancellationToken) {
             var weatherdata = await _weatherService.GetWeatherForecastByCity(request.City);
-            return _mapper.Map<WeatherForecastResponse>(weatherdata);
+            return CheapMapper(weatherdata);
+        }
+
+
+        private WeatherForecastResponse CheapMapper(Domain.WeatherForecast forecast) {
+            if (forecast?.Forecasts is null || forecast.Forecasts.Length == 0) return new WeatherForecastResponse() { Status = "No Results" };
+
+            var groupbyday = forecast.Forecasts.GroupBy(gb => gb.ForecastDatetime.Date);
+            var forecastsForResponse = groupbyday.Select(s => new ForecastForDayResponse() {
+                Date = s.First().ForecastDatetime.Date,
+                HumidityAverageInPercent = s.Sum(s => s.HumidityInPercent ?? 0) / s.Count(),
+                TemperatureAverageInKelvin = s.Sum(s => s.TemperatureInKelvin ?? 0) / s.Count(),
+                WindSpeedAverageInMeterPerSecond = s.Sum(s => s.WindSpeedInMeterPerSecond ?? 0) / s.Count()
+            });
+
+            return new WeatherForecastResponse() {
+                Cityname = forecast.City,
+                Status = forecast.Status,
+                Forecasts = forecastsForResponse.ToArray()
+            };
         }
     }
 }
