@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using WeatherForecast.Api.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api {
     public class Startup {
@@ -29,6 +30,11 @@ namespace WeatherForecast.Api {
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1", new OpenApiInfo() { Title = "WeatherForecast API", Version = "0.1" });
             });
+
+            services.AddSingleton(new OpenWeatherApiSettings(Configuration.GetValue<string>("OpenWeatherMap:ServiceUri"),
+                                                            Configuration.GetValue<string>("OpenWeatherMap:AppKey"),
+                                                            Configuration.GetValue<string>("OpenWeatherMap:CountryCode")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

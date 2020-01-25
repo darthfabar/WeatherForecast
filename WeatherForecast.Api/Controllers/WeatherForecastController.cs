@@ -20,7 +20,7 @@ namespace WeatherForecast.Api.Controllers {
             _mediator = mediator;
         }
 
-        [HttpGet()]
+        [HttpGet()]        
         public async Task<IActionResult> GetForecastByZipCode([FromQuery]string zipcode) {
             var query = new GetForecastByZipCodeQuery(zipcode);
             var result = await _mediator.Send(query);

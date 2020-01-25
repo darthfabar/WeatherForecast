@@ -16,7 +16,7 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
             var searchword = "Leipzig";
             var parameterbuilder = WeatherForecastParameterBuilder
                 .Start()
-                .AddSearchword(searchword);
+                .AddCity(searchword);
 
             Assert.AreEqual(1, parameterbuilder.GetParameterDict().Count);
             Assert.AreEqual(searchword, parameterbuilder.GetParameterDict()["q"]);
@@ -27,7 +27,7 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
             var searchword = "Leipzig";
             var parameterbuilder = WeatherForecastParameterBuilder
                 .Start()
-                .AddSearchword(searchword,"de");
+                .AddCity(searchword,"de");
 
             Assert.AreEqual(1, parameterbuilder.GetParameterDict().Count);
             Assert.AreEqual(searchword + ",de", parameterbuilder.GetParameterDict()["q"]);
@@ -39,8 +39,8 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
             var searchword2 = "Erfurt";
             var parameterbuilder = WeatherForecastParameterBuilder
                 .Start()
-                .AddSearchword(searchword)
-                .AddSearchword(searchword2);
+                .AddCity(searchword)             
+                .AddCity(searchword2);                
 
             Assert.AreEqual(1, parameterbuilder.GetParameterDict().Count);
             Assert.AreEqual(searchword2, parameterbuilder.GetParameterDict()["q"]);
@@ -76,7 +76,7 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
 
             var parameterbuilder = WeatherForecastParameterBuilder
                 .Start()
-                .AddSearchword(searchword)
+                .AddCity(searchword)
                 .AddNumberOfResults(numberOfResults)
                 .AddAppKey(appkey);
 

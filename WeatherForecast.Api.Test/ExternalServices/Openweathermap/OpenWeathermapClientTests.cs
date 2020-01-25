@@ -23,13 +23,10 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
         public async Task GetWeatherForecastTest() {
             //TODO wegmocken
             var httpclientfactory = new HttpClientFactory();
-            var apisettings = new OpenWeatherApiSettings() {
-                AppId = "",
-                BaseUri = "http://api.openweathermap.org/data/2.5/",                
-            };
+            var apisettings = new OpenWeatherApiSettings("http://api.openweathermap.org/data/2.5/", "TESTAPPKEY", null);
             var forecastclient = new OpenWeathermapClient(apisettings, httpclientfactory);
 
-            var result = await forecastclient.GetWeatherForecast("Leipzig", 50);
+            var result = await forecastclient.GetWeatherForecastByCity("Leipzig", 50);
 
             Assert.IsNotNull(result);
         }

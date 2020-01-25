@@ -1,7 +1,13 @@
 ﻿namespace WeatherForecast.Api.ExternalServices.Openweathermap {
     public class OpenWeatherApiSettings {
-        public string AppId { get; set; }
-        public string BaseUri { get; set; }
-        public string CountryCode { get; set; } = "de";
+        public string AppId { get; }
+        public string BaseUri { get; }
+        public string CountryCode { get; }
+
+        public OpenWeatherApiSettings(string baseuri, string appid, string countrycode) {
+            AppId = appid;
+            BaseUri = baseuri;
+            CountryCode = countrycode ?? "de";
+        }
     }
 }

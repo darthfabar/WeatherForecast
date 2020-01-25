@@ -12,24 +12,13 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
             return new WeatherForecastParameterBuilder();
         }
 
-        public WeatherForecastParameterBuilder AddSearchword(string search, string countrycode = null) {
-            var key = search;
-            if (!string.IsNullOrEmpty(countrycode)) key += $",{countrycode}";
-            Add("q", key);
-            return this;
-        }
-
         public WeatherForecastParameterBuilder AddZip(string zip, string countrycode = null) {
-            var key = zip;
-            if (!string.IsNullOrEmpty(countrycode)) key += $",{countrycode}";
-            Add("zip", key);
+            AddWithCountyCode("zip", zip, countrycode);            
             return this;
         }
 
         public WeatherForecastParameterBuilder AddCity(string city, string countrycode = null) {
-            var key = city;
-            if (!string.IsNullOrEmpty(countrycode)) key += $",{countrycode}";
-            Add("city", key);
+            AddWithCountyCode("q", city, countrycode);            
             return this;
         }
 
@@ -52,6 +41,11 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
 
         public Dictionary<string,string> GetParameterDict() {
             return _parameterDict;
+        }
+
+        private void AddWithCountyCode(string key, string value, string countrycode = null) {            
+            if (!string.IsNullOrEmpty(countrycode)) value += $",{countrycode}";
+            Add(key, value);            
         }
 
         private void Add(string key, string value) {

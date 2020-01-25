@@ -13,15 +13,6 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<OpenweatherForecastResponse> GetWeatherForecast(string search, int cnt) {
-            var parameter = WeatherForecastParameterBuilder
-                .Start()
-                .AddSearchword(search, _openweatherApiSettings.CountryCode)
-                .AddNumberOfResults(cnt)
-                .AddAppKey(_openweatherApiSettings.AppId);
-            return await GetWeatherForecastBase(parameter);
-        }
-
         public async Task<OpenweatherForecastResponse> GetWeatherForecastByCity(string city, int cnt) {
             var parameter = WeatherForecastParameterBuilder
                 .Start()
@@ -51,8 +42,12 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
                         result = JsonSerializer.Deserialize<OpenweatherForecastResponse>(await response.Content.ReadAsStringAsync());
                         return result;
                     }
-                    //TODO den ganzen rest
+                    if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
 
+                    }
+                    if(response.StatusCode == System.Net.HttpStatusCode.NotFound) {
+
+                    }
                 }
                 catch (Exception) {
 
