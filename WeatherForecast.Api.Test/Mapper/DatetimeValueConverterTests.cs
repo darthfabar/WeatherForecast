@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WeatherForecast.Api.Mapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WeatherForecast.Api.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api.Mapper.Tests {
@@ -10,14 +7,14 @@ namespace WeatherForecast.Api.Mapper.Tests {
     public class DatetimeValueConverterTests {
         [TestMethod()]
         public void ConvertTest() {
-            var converter = new DatetimeValueConverter();
+            var converter = new DatetimeValueResolver();
 
             var list = new List() {
                 dt_txt = "2020-01-25 12:00:00",
                 dt = 1579953600
             };
 
-            var date = converter.Convert(list, null);
+            var date = converter.Resolve(list, new Domain.ForecastDetails(), new DateTime(), null);
 
             Assert.AreEqual(DateTimeKind.Utc, date.Kind);
             Assert.AreEqual(2020, date.Year);

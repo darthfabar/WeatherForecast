@@ -13,13 +13,21 @@ namespace WeatherForecast.Api.Services {
             _openWeatherMapClient = openWeathermapClient;
         }
         public async Task<Domain.WeatherForecast> GetWeatherForecastByCity(string city) {
-            var response = await _openWeatherMapClient.GetWeatherForecastByCity(city, NUMBER_OF_RESULTS);
-            return _mapper.Map<Domain.WeatherForecast>(response);
+            return await GetAndMapWeatherdata(_openWeatherMapClient.GetWeatherForecastByCity(city, NUMBER_OF_RESULTS), city);
         }
 
         public async Task<Domain.WeatherForecast> GetWeatherForecastByZipcode(string zipcode) {
-            var response = await _openWeatherMapClient.GetWeatherForecastByZipcode(zipcode, NUMBER_OF_RESULTS);
-            return _mapper.Map<Domain.WeatherForecast>(response);
+            return await GetAndMapWeatherdata(_openWeatherMapClient.GetWeatherForecastByZipcode(zipcode, NUMBER_OF_RESULTS), zipcode);
+        }
+
+        private async Task<Domain.WeatherForecast> GetAndMapWeatherdata(Task<OpenweatherForecastResponse> forecastsTask, string query) {
+            var forecastsResponse = await forecastsTask;
+            var currenweatherresponse = await _openWeatherMapClient.GetCurrentWeatherForecast(query);
+          
+            var result = _mapper.Map<Domain.WeatherForecast>(forecastsResponse);
+            var currentForecast = _mapper.Map<Domain.ForecastDetails>(currenweatherresponse);
+            if(result != null) result.CurrentWeather = currentForecast;            
+            return result;
         }
     }
 }

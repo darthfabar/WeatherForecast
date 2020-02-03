@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -19,7 +18,19 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
                 .AddCity(city, _openweatherApiSettings.CountryCode)
                 .AddNumberOfResults(cnt)
                 .AddAppKey(_openweatherApiSettings.AppId);
-            return await GetWeatherForecastBase(parameter);
+            return await GetWeatherForecastsBase(parameter);
+        }
+
+        public async Task<OpenweatherCurrentForecastResponse> GetCurrentWeatherForecast(string q) {
+            var parameter = WeatherForecastParameterBuilder
+                .Start()
+                .AddCity(q, _openweatherApiSettings.CountryCode)
+                .AddAppKey(_openweatherApiSettings.AppId);
+
+            var httpResponse = await GetOpenWeaterDataBase(parameter, "weather");
+
+            var result = JsonSerializer.Deserialize<OpenweatherCurrentForecastResponse>(await httpResponse.Content.ReadAsStringAsync());
+            return result;
         }
 
         public async Task<OpenweatherForecastResponse> GetWeatherForecastByZipcode(string zipcode, int cnt) {
@@ -28,33 +39,33 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
                 .AddZip(zipcode, _openweatherApiSettings.CountryCode)
                 .AddNumberOfResults(cnt)
                 .AddAppKey(_openweatherApiSettings.AppId);
-            return await GetWeatherForecastBase(parameter);
+            return await GetWeatherForecastsBase(parameter);
         }
 
-        private async Task<OpenweatherForecastResponse> GetWeatherForecastBase(WeatherForecastParameterBuilder parameter) {
+        private async Task<OpenweatherForecastResponse> GetWeatherForecastsBase(WeatherForecastParameterBuilder parameter, string route = "forecast/") {
+            var httpResponse = await GetOpenWeaterDataBase(parameter, route);
+            if (httpResponse == null) return null;
+
+            var result = JsonSerializer.Deserialize<OpenweatherForecastResponse>(await httpResponse.Content.ReadAsStringAsync());
+            return result;            
+        }
+        private async Task<HttpResponseMessage> GetOpenWeaterDataBase(WeatherForecastParameterBuilder parameter, string route) {
             using (var httpclient = _httpClientFactory.GetHttpClient()) {
                 try {
                     httpclient.BaseAddress = new Uri(_openweatherApiSettings.BaseUri);
-                    var response = await httpclient.GetAsync("forecast/" + parameter.ToString());
-
-                    OpenweatherForecastResponse result = null;
-                    if (response.IsSuccessStatusCode) {
-                        result = JsonSerializer.Deserialize<OpenweatherForecastResponse>(await response.Content.ReadAsStringAsync());
-                        return result;
+                    var response = await httpclient.GetAsync(route + parameter.ToString());                    
+                    if (response.IsSuccessStatusCode) {                        
+                        return response;
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                        throw new Exception("Unauthorized");
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.NotFound) {
-
-                    }
+                    return null;
                 }
                 catch (Exception) {
-
                     throw;
                 }
             }
-            throw new NotImplementedException();
         }
     }
 }
