@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="bv-example-row">
+    <b-container>
       <b-row v-if="isInLoadingAppState">
         <Loading/>
       </b-row>
