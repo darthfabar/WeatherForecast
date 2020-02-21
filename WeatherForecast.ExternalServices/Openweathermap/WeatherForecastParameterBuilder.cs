@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace WeatherForecast.Api.ExternalServices.Openweathermap {
+namespace WeatherForecast.ExternalServices.Openweathermap {
     public class WeatherForecastParameterBuilder {
         private Dictionary<string, string> _parameterDict;
         public WeatherForecastParameterBuilder() {
@@ -13,12 +13,12 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
         }
 
         public WeatherForecastParameterBuilder AddZip(string zip, string countrycode = null) {
-            AddWithCountyCode("zip", zip, countrycode);            
+            AddWithCountyCode("zip", zip, countrycode);
             return this;
         }
 
         public WeatherForecastParameterBuilder AddCity(string city, string countrycode = null) {
-            AddWithCountyCode("q", city, countrycode);            
+            AddWithCountyCode("q", city, countrycode);
             return this;
         }
 
@@ -39,13 +39,13 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
             return stringbuilder.ToString();
         }
 
-        public Dictionary<string,string> GetParameterDict() {
+        public Dictionary<string, string> GetParameterDict() {
             return _parameterDict;
         }
 
-        private void AddWithCountyCode(string key, string value, string countrycode = null) {            
+        private void AddWithCountyCode(string key, string value, string countrycode = null) {
             if (!string.IsNullOrEmpty(countrycode)) value += $",{countrycode}";
-            Add(key, value);            
+            Add(key, value);
         }
 
         private void Add(string key, string value) {

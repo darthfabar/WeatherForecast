@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Api", "WeatherForecast.Api\WeatherForecast.Api.csproj", "{1C7DB023-3ABD-4517-B679-435F556DDF1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Api", "WeatherForecast.Api\WeatherForecast.Api.csproj", "{1C7DB023-3ABD-4517-B679-435F556DDF1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Api.Test", "WeatherForecast.Api.Test\WeatherForecast.Api.Test.csproj", "{B0C56AF8-2297-438E-9494-0B34289B1E03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Api.Test", "WeatherForecast.Api.Test\WeatherForecast.Api.Test.csproj", "{B0C56AF8-2297-438E-9494-0B34289B1E03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.ExternalServices", "WeatherForecast.ExternalServices\WeatherForecast.ExternalServices.csproj", "{AD2755EB-ABFB-4339-B93C-3A5A7C182585}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1C7DB023-3ABD-4517-B679-435F556DDF1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +43,23 @@ Global
 		{B0C56AF8-2297-438E-9494-0B34289B1E03}.Release|x64.Build.0 = Release|Any CPU
 		{B0C56AF8-2297-438E-9494-0B34289B1E03}.Release|x86.ActiveCfg = Release|Any CPU
 		{B0C56AF8-2297-438E-9494-0B34289B1E03}.Release|x86.Build.0 = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|x64.Build.0 = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD2755EB-ABFB-4339-B93C-3A5A7C182585}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4283382E-4674-42CD-AEFC-E899E4F0E449}
 	EndGlobalSection
 EndGlobal

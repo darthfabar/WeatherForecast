@@ -5,10 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using WeatherForecast.Api.ExternalServices;
-using WeatherForecast.Api.ExternalServices.Openweathermap;
 using WeatherForecast.Api.Services;
 using AutoMapper;
+using WeatherForecast.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api {
     public class Startup {
@@ -33,7 +32,7 @@ namespace WeatherForecast.Api {
                                                             Configuration.GetValue<string>("OpenWeatherMap:CountryCode")));
 
             services.AddScoped<IWeatherService, OpenWeatherMapService>();
-            services.AddScoped<IHttpClientFactory, HttpClientFactory>();
+            services.AddHttpClient<IOpenWeathermapClient, OpenWeathermapClient>();
             services.AddScoped<IOpenWeathermapClient, OpenWeathermapClient>();
             services.AddAutoMapper(typeof(Startup));
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using WeatherForecast.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
     [TestClass()]

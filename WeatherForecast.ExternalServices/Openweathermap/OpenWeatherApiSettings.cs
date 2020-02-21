@@ -1,4 +1,4 @@
-﻿namespace WeatherForecast.Api.ExternalServices.Openweathermap {
+﻿namespace WeatherForecast.ExternalServices.Openweathermap {
     public class OpenWeatherApiSettings {
         public string AppId { get; }
         public string BaseUri { get; }

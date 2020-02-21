@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using WeatherForecast.Api.Domain;
-using WeatherForecast.Api.ExternalServices.Openweathermap;
+using WeatherForecast.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api.Mapper {
     public class ExternalServiceToDomainProfile : Profile {

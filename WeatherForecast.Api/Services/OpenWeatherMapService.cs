@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Linq;
 using System.Threading.Tasks;
-using WeatherForecast.Api.ExternalServices.Openweathermap;
+using WeatherForecast.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api.Services {
     public class OpenWeatherMapService : IWeatherService {

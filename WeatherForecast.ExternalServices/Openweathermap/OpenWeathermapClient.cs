@@ -3,13 +3,14 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace WeatherForecast.Api.ExternalServices.Openweathermap {
+namespace WeatherForecast.ExternalServices.Openweathermap {
     public class OpenWeathermapClient : IOpenWeathermapClient {
         private readonly OpenWeatherApiSettings _openweatherApiSettings;
-        private readonly IHttpClientFactory _httpClientFactory;
-        public OpenWeathermapClient(OpenWeatherApiSettings openweatherApiSettings, IHttpClientFactory httpClientFactory) {
+        private readonly HttpClient _httpClient;
+        public OpenWeathermapClient(OpenWeatherApiSettings openweatherApiSettings, HttpClient httpClient) {
             _openweatherApiSettings = openweatherApiSettings;
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(_openweatherApiSettings.BaseUri);
         }
 
         public async Task<OpenweatherForecastResponse> GetWeatherForecastByCity(string city, int cnt) {
@@ -47,25 +48,24 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap {
             if (httpResponse == null) return null;
 
             var result = JsonSerializer.Deserialize<OpenweatherForecastResponse>(await httpResponse.Content.ReadAsStringAsync());
-            return result;            
+            return result;
         }
         private async Task<HttpResponseMessage> GetOpenWeaterDataBase(WeatherForecastParameterBuilder parameter, string route) {
-            using (var httpclient = _httpClientFactory.GetHttpClient()) {
-                try {
-                    httpclient.BaseAddress = new Uri(_openweatherApiSettings.BaseUri);
-                    var response = await httpclient.GetAsync(route + parameter.ToString());                    
-                    if (response.IsSuccessStatusCode) {                        
-                        return response;
-                    }
-                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-                        throw new Exception("Unauthorized");
-                    }
-                    return null;
+            try {
+                
+                var response = await _httpClient.GetAsync(route + parameter.ToString());
+                if (response.IsSuccessStatusCode) {
+                    return response;
                 }
-                catch (Exception) {
-                    throw;
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                    throw new Exception("Unauthorized");
                 }
+                return null;
             }
+            catch (Exception) {
+                throw;
+            }
+
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WeatherForecast.Api.ExternalServices.Openweathermap;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Moq;
+using WeatherForecast.ExternalServices.Openweathermap;
 
 namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
     [TestClass()]
@@ -17,27 +15,17 @@ namespace WeatherForecast.Api.ExternalServices.Openweathermap.Tests {
             var httpMessageHandlerMock = new Mock<FakeHttpMessageHandler>() { CallBase = true };
             httpMessageHandlerMock.Setup(s => s.Send(It.IsAny<HttpRequestMessage>())).Returns(new HttpResponseMessage() {
                     StatusCode = System.Net.HttpStatusCode.OK,
-                    Content = new StringContent(WeatherForecast.Api.Test.Properties.Resources.sampleResponse)
+                    Content = new StringContent(Test.Properties.Resources.sampleResponse)
                 });
 
 
-            var httpclientfactory = new TestHttpClientFactory(httpMessageHandlerMock.Object);
+            var httpclientfactory = new HttpClient(httpMessageHandlerMock.Object);
             var apisettings = new OpenWeatherApiSettings("http://api.openweathermap.org/data/2.5/", "TESTAPPKEY", null);
             var forecastclient = new OpenWeathermapClient(apisettings, httpclientfactory);
 
             var result = await forecastclient.GetWeatherForecastByCity("Leipzig", 50);
 
             Assert.IsNotNull(result);
-        }
-    }
-
-    public class TestHttpClientFactory : IHttpClientFactory {
-        private readonly HttpMessageHandler _httpMessageHandler;
-        public TestHttpClientFactory(HttpMessageHandler httpMessageHandler) {
-            _httpMessageHandler = httpMessageHandler;
-        }
-        public HttpClient GetHttpClient() {
-            return new HttpClient(_httpMessageHandler);            
         }
     }
 
