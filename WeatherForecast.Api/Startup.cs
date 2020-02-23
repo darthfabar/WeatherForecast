@@ -35,7 +35,7 @@ namespace WeatherForecast.Api {
             services.AddHttpClient<IOpenWeathermapClient, OpenWeathermapClient>(client => {
                 client.BaseAddress = new System.Uri(Configuration.GetValue<string>("OpenWeatherMap:ServiceUri"));
             });
-            services.AddScoped<IOpenWeathermapClient, OpenWeathermapClient>();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddCors(options => {
@@ -43,6 +43,10 @@ namespace WeatherForecast.Api {
                 builder => {
                     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
+            });
+
+            services.AddResponseCaching(options => {
+                options.UseCaseSensitivePaths = false;                
             });
 
         }
