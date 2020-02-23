@@ -32,7 +32,9 @@ namespace WeatherForecast.Api {
                                                             Configuration.GetValue<string>("OpenWeatherMap:CountryCode")));
 
             services.AddScoped<IWeatherService, OpenWeatherMapService>();
-            services.AddHttpClient<IOpenWeathermapClient, OpenWeathermapClient>();
+            services.AddHttpClient<IOpenWeathermapClient, OpenWeathermapClient>(client => {
+                client.BaseAddress = new System.Uri(Configuration.GetValue<string>("OpenWeatherMap:ServiceUri"));
+            });
             services.AddScoped<IOpenWeathermapClient, OpenWeathermapClient>();
             services.AddAutoMapper(typeof(Startup));
 
