@@ -24,7 +24,7 @@ namespace WeatherForecast.Api {
             services.AddMediatR(typeof(Startup));
 
             services.AddSwaggerGen(options => {
-                options.SwaggerDoc("v1", new OpenApiInfo() { Title = "WeatherForecast API", Version = "0.1" });
+                options.SwaggerDoc("v1", new OpenApiInfo() { Title = "WeatherForecast API", Version = "1.0" });
             });
 
             services.AddSingleton(new OpenWeatherApiSettings(Configuration.GetValue<string>("OpenWeatherMap:ServiceUri"),

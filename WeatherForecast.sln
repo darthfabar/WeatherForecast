@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Api", "Weat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Api.Test", "WeatherForecast.Api.Test\WeatherForecast.Api.Test.csproj", "{B0C56AF8-2297-438E-9494-0B34289B1E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.ExternalServices", "WeatherForecast.ExternalServices\WeatherForecast.ExternalServices.csproj", "{AD2755EB-ABFB-4339-B93C-3A5A7C182585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.ExternalServices", "WeatherForecast.ExternalServices\WeatherForecast.ExternalServices.csproj", "{AD2755EB-ABFB-4339-B93C-3A5A7C182585}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C71E7403-3ECA-41AE-8A5E-0943C44990FD}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

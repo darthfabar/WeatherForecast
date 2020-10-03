@@ -1,0 +1,162 @@
+{
+    "item": [
+        {
+            "id": "1b6083d5-a36c-43c4-9477-b6e8f1ed402c",
+            "name": "api/Weather Forecast",
+            "item": [
+                {
+                    "id": "d2d518ec-3f1b-46fd-af71-d7eaf3e8bf07",
+                    "name": "/api/WeatherForecast/GetForecastByZipCode",
+                    "request": {
+                        "name": "/api/WeatherForecast/GetForecastByZipCode",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "api",
+                                "WeatherForecast",
+                                "GetForecastByZipCode"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "description": "",
+                                    "key": "zipcode",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "abc693a1-2788-412c-926d-6220441379e9",
+                            "name": "Success",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "WeatherForecast",
+                                        "GetForecastByZipCode"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "zipcode",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain"
+                                }
+                            ],
+                            "body": "",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": []
+                },
+                {
+                    "id": "ed4159d3-e991-4540-84b3-00f1ebfa27ab",
+                    "name": "/api/WeatherForecast/GetForecastByCity",
+                    "request": {
+                        "name": "/api/WeatherForecast/GetForecastByCity",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "api",
+                                "WeatherForecast",
+                                "GetForecastByCity"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "description": "",
+                                    "key": "city",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "970724ae-f6ae-45e6-80e3-324d8d4ded0f",
+                            "name": "Success",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "WeatherForecast",
+                                        "GetForecastByCity"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "city",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain"
+                                }
+                            ],
+                            "body": "",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": []
+                }
+            ],
+            "event": []
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "id": "baseUrl",
+            "type": "string",
+            "value": "/"
+        }
+    ],
+    "info": {
+        "_postman_id": "0b2c2a7f-6e9e-4e49-9872-84e7152f1fec",
+        "name": "WeatherForecast API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "",
+            "type": "text/plain"
+        }
+    }
+}
